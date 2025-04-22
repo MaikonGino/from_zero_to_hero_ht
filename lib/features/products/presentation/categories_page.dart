@@ -4,6 +4,23 @@ import 'package:from_zero_to_hero_ht/features/products/presentation/providers/ca
 
 import 'widgets/category_widget.dart';
 
+
+void main() {
+  // 2. Alteração da árvore tranformando o App em um child de ProviderScope
+  runApp(const ProviderScope(child: App()));
+}
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: CategoryPage(),
+    );
+  }
+}
+
 class CategoryPage extends ConsumerWidget {
   const CategoryPage({super.key});
 
@@ -11,13 +28,13 @@ class CategoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(categoriesProvider);
 
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         elevation: 8,
         title: const Text('Category Products'),
       ),
       body: categories.when(
-        data: (data) {
+        data: (data) {          
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {

@@ -40,21 +40,15 @@ class ProductsByCategoryFamily extends Family<AsyncValue<List<Product>>> {
   const ProductsByCategoryFamily();
 
   /// See also [productsByCategory].
-  ProductsByCategoryProvider call({
-    required String category,
-  }) {
-    return ProductsByCategoryProvider(
-      category: category,
-    );
+  ProductsByCategoryProvider call({required String category}) {
+    return ProductsByCategoryProvider(category: category);
   }
 
   @override
   ProductsByCategoryProvider getProviderOverride(
     covariant ProductsByCategoryProvider provider,
   ) {
-    return call(
-      category: provider.category,
-    );
+    return call(category: provider.category);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -76,24 +70,23 @@ class ProductsByCategoryFamily extends Family<AsyncValue<List<Product>>> {
 class ProductsByCategoryProvider
     extends AutoDisposeFutureProvider<List<Product>> {
   /// See also [productsByCategory].
-  ProductsByCategoryProvider({
-    required String category,
-  }) : this._internal(
-          (ref) => productsByCategory(
-            ref as ProductsByCategoryRef,
-            category: category,
-          ),
-          from: productsByCategoryProvider,
-          name: r'productsByCategoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$productsByCategoryHash,
-          dependencies: ProductsByCategoryFamily._dependencies,
-          allTransitiveDependencies:
-              ProductsByCategoryFamily._allTransitiveDependencies,
+  ProductsByCategoryProvider({required String category})
+    : this._internal(
+        (ref) => productsByCategory(
+          ref as ProductsByCategoryRef,
           category: category,
-        );
+        ),
+        from: productsByCategoryProvider,
+        name: r'productsByCategoryProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$productsByCategoryHash,
+        dependencies: ProductsByCategoryFamily._dependencies,
+        allTransitiveDependencies:
+            ProductsByCategoryFamily._allTransitiveDependencies,
+        category: category,
+      );
 
   ProductsByCategoryProvider._internal(
     super._createNotifier, {
@@ -159,5 +152,6 @@ class _ProductsByCategoryProviderElement
   @override
   String get category => (origin as ProductsByCategoryProvider).category;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
